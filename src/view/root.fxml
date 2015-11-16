@@ -1,0 +1,45 @@
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox fx:controller="controller.RootController" xmlns:fx="http://javafx.com/fxml" >
+
+    <MenuBar fx:id="menuBar">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem text="New" onAction="#newMenuAction"/>
+                    <MenuItem text="Open" onAction="#openMenuAction" />
+                    <MenuItem fx:id="saveMenu" text="Save" onAction="#saveMenuAction" disable="true" />
+                    <SeparatorMenuItem  />
+                    <MenuItem text="Exit" onAction="#exitMenuAction"/>
+                </items>
+            </Menu>
+            <Menu text="Help">
+                <items>
+                    <MenuItem text="About" onAction="#aboutMenuAction"/>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+
+
+
+    <HBox>
+        <Button text="Shuffle teams" onAction="#shuffleTeamsButtonAction" />
+        <Button fx:id="configPlayersButton" text="Config players" onAction="#configPlayersButtonAction" disable="true"/>
+    </HBox>
+    <HBox>
+        <Text text="Winning team: "/>
+        <TextField fx:id="teamWonTextField"/>
+        <Button text="Submit" onAction="#submitButtonAction"/>
+    </HBox>
+
+</VBox>
