@@ -9,10 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Team;
 import model.Tournament;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class RootController {
 
@@ -65,7 +67,13 @@ public class RootController {
 
     @FXML
     protected void shuffleTeamsButtonAction() {
-
+        ArrayList<Team> teamList = tournament.shuffle();
+        for(Team t : teamList) {
+            for (int i = 0; i < t.size(); i++) {
+                System.out.println(t.getPlayer(i));
+            }
+            System.out.println();
+        }
     }
 
     @FXML

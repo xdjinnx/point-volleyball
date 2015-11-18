@@ -12,8 +12,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Created by Peter on 2015-11-15.
@@ -82,6 +85,25 @@ public class Tournament {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Team> shuffle() {
+
+        int teamAmount = playerList.size()/6;
+        teamAmount = teamAmount % 2 == 0 ? teamAmount : teamAmount + 1;
+        teamAmount = teamAmount <= playerList.size()/5 ? teamAmount : teamAmount - 2;
+
+        ArrayList<Player> shuffledList = (ArrayList<Player>) playerList.clone();
+        Collections.shuffle(shuffledList, new Random(System.nanoTime()));
+
+        ArrayList<Team> teamList = new ArrayList<Team>();
+        for (int i = 0; i < teamAmount; i++)
+            teamList.add(new Team());
+
+        for (int i = 0; i < shuffledList.size(); i++)
+            teamList.get(i % teamAmount).addPlayer(shuffledList.get(i));
+
+        return teamList;
     }
 
     public void setFile(File file) {
