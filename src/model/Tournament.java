@@ -43,10 +43,7 @@ public class Tournament {
             Element rootElement = doc.createElement("players");
             doc.appendChild(rootElement);
 
-            Iterator<Player> iterator = playerList.iterator();
-
-            while(iterator.hasNext()) {
-                Player player = iterator.next();
+            for (Player player : playerList) {
 
                 Element elem = doc.createElement("player");
                 rootElement.appendChild(elem);

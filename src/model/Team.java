@@ -16,11 +16,8 @@ public class Team {
     }
 
     public void givePoints(int points) {
-        Iterator<Player> iterator = playerList.iterator();
-
-        while(iterator.hasNext()) {
-            iterator.next().addPoints(points);
-        }
+        for (Player player : playerList)
+            player.addPoints(points);
     }
 
     public Player getPlayer(int i) {
@@ -29,6 +26,15 @@ public class Team {
 
     public int size() {
         return playerList.size();
+    }
+
+    @Override
+    public String toString() {
+        List<String> list = new ArrayList<String>();
+        for (Player player : playerList)
+            list.add(player.toString());
+
+        return String.join(" - ", list);
     }
 
 }

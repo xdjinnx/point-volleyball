@@ -9,9 +9,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.control.ListView?>
 <VBox fx:controller="controller.RootController" xmlns:fx="http://javafx.com/fxml" >
 
-    <MenuBar fx:id="menuBar">
+    <MenuBar>
         <menus>
             <Menu text="File">
                 <items>
@@ -30,16 +31,12 @@
         </menus>
     </MenuBar>
 
-
+    <ListView fx:id="teamListView" />
 
     <HBox>
+        <Button fx:id="givePointsButton" text="Give points" onAction="#givePointsButtonAction" disable="true" />
         <Button text="Shuffle teams" onAction="#shuffleTeamsButtonAction" />
-        <Button fx:id="configPlayersButton" text="Config players" onAction="#configPlayersButtonAction" disable="true"/>
-    </HBox>
-    <HBox>
-        <Text text="Winning team: "/>
-        <TextField fx:id="teamWonTextField"/>
-        <Button text="Submit" onAction="#submitButtonAction"/>
+        <Button fx:id="configPlayersButton" text="Config players" onAction="#configPlayersButtonAction" disable="true" />
     </HBox>
 
 </VBox>

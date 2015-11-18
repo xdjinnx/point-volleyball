@@ -1,25 +1,29 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Player;
 import model.Team;
 import model.Tournament;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class RootController {
 
     @FXML private MenuItem saveMenu;
+    @FXML private ListView teamListView;
     @FXML private Button configPlayersButton;
+    @FXML private Button givePointsButton;
 
     private Tournament tournament;
 
@@ -68,12 +72,10 @@ public class RootController {
     @FXML
     protected void shuffleTeamsButtonAction() {
         ArrayList<Team> teamList = tournament.shuffle();
-        for(Team t : teamList) {
-            for (int i = 0; i < t.size(); i++) {
-                System.out.println(t.getPlayer(i));
-            }
-            System.out.println();
-        }
+        ObservableList<Team> content = FXCollections.observableList(teamList);
+        teamListView.setItems(content);
+
+        givePointsButton.setDisable(false);
     }
 
     @FXML
@@ -93,7 +95,18 @@ public class RootController {
     }
 
     @FXML
-    protected void submitButtonAction() {
+    protected void givePointsButtonAction() {
+
+        Team team = ((Team) teamListView.getSelectionModel().getSelectedItem());
+
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Give points");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Give points to: " + team);
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent())
+            team.givePoints(Integer.parseInt(result.get()));
     }
 
     private void unlockApplication() {

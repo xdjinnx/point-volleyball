@@ -31,9 +31,8 @@ public class ConfigController {
         dialog.setContentText("Enter name and etc:");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
+        if (result.isPresent())
             content.add(new Player(result.get()));
-        }
     }
 
     @FXML
@@ -46,9 +45,8 @@ public class ConfigController {
             dialog.setContentText("Edit name and etc:");
 
             Optional<String> result = dialog.showAndWait();
-            if (result.isPresent()) {
+            if (result.isPresent())
                 ((Player) playerListView.getSelectionModel().getSelectedItem()).setName(result.get());
-            }
 
             playerListView.refresh();
         } catch (NullPointerException e) {}
