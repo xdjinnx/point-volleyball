@@ -37,6 +37,7 @@
         <Button fx:id="givePointsButton" text="Give points" onAction="#givePointsButtonAction" disable="true" />
         <Button text="Shuffle teams" onAction="#shuffleTeamsButtonAction" />
         <Button fx:id="configPlayersButton" text="Config players" onAction="#configPlayersButtonAction" disable="true" />
+        <Button fx:id="searchPlayerButton" text="Search player" onAction="#searchPlayerButtonAction" />
     </HBox>
 
 </VBox>

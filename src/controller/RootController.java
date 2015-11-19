@@ -26,6 +26,7 @@ public class RootController {
     @FXML private Button givePointsButton;
 
     private Tournament tournament;
+    private ObservableList<Team> content;
 
     @FXML
     protected void newMenuAction() {
@@ -57,11 +58,7 @@ public class RootController {
 
     @FXML
     protected void aboutMenuAction() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("About");
-        alert.setHeaderText(null);
-        alert.setContentText("Created by Peter Lundberg");
-        alert.showAndWait();
+        alertBox("About", "Created by Peter Lundberg");
     }
 
     @FXML
@@ -72,7 +69,7 @@ public class RootController {
     @FXML
     protected void shuffleTeamsButtonAction() {
         ArrayList<Team> teamList = tournament.shuffle();
-        ObservableList<Team> content = FXCollections.observableList(teamList);
+        content = FXCollections.observableList(teamList);
         teamListView.setItems(content);
 
         givePointsButton.setDisable(false);
@@ -87,7 +84,7 @@ public class RootController {
             controller.setup(tournament.getPlayerList());
             Stage stage = new Stage();
             stage.setTitle("Config");
-            stage.setScene(new Scene(root, 450, 450));
+            stage.setScene(new Scene(root, 475, 475));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,6 +104,30 @@ public class RootController {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent())
             team.givePoints(Integer.parseInt(result.get()));
+    }
+
+    @FXML
+    protected void searchPlayerButtonAction() {
+
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Search for player");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Search for player:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent())
+            for (Team team : content)
+                for (Player player : team.findPlayers(result.get())) {
+                    alertBox("Found player/s", player.getName() + " found in team " + team.getName());
+                }
+    }
+
+    private void alertBox(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     private void unlockApplication() {

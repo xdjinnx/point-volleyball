@@ -9,7 +9,12 @@ import java.util.List;
  */
 public class Team {
 
-    ArrayList<Player> playerList = new ArrayList<Player>();
+    private ArrayList<Player> playerList = new ArrayList<Player>();
+    private String name;
+
+    public Team(String name) {
+        this.name = name;
+    }
 
     public void addPlayer(Player player) {
         playerList.add(player);
@@ -20,8 +25,21 @@ public class Team {
             player.addPoints(points);
     }
 
+    public List<Player> findPlayers(String name) {
+        ArrayList<Player> list = new ArrayList<Player>();
+        for (Player player : playerList)
+            if (player.couldBeYou(name))
+                list.add(player);
+
+        return list;
+    }
+
     public Player getPlayer(int i) {
         return playerList.get(i);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int size() {
@@ -32,9 +50,9 @@ public class Team {
     public String toString() {
         List<String> list = new ArrayList<String>();
         for (Player player : playerList)
-            list.add(player.toString());
+            list.add(player.getName());
 
-        return String.join(" - ", list);
+        return "Team " + name + ": " + String.join(", ", list);
     }
 
 }

@@ -29,6 +29,14 @@ public class Player {
         this.name = name;
     }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public boolean couldBeYou(String name) {
+        return this.name.toLowerCase().contains(name.toLowerCase());
+    }
+
     public int getPoints() {
         return points;
     }
@@ -39,6 +47,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return name;
+        return name + ", " + points + " points";
     }
 }

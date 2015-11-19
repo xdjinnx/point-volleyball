@@ -95,7 +95,7 @@ public class Tournament {
 
         ArrayList<Team> teamList = new ArrayList<Team>();
         for (int i = 0; i < teamAmount; i++)
-            teamList.add(new Team());
+            teamList.add(new Team((i + 1) + ""));
 
         for (int i = 0; i < shuffledList.size(); i++)
             teamList.get(i % teamAmount).addPlayer(shuffledList.get(i));

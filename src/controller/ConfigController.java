@@ -36,13 +36,13 @@ public class ConfigController {
     }
 
     @FXML
-    protected void editPlayerButtonAction() {
+    protected void editPlayerNameButtonAction() {
 
         try {
-            TextInputDialog dialog = new TextInputDialog(((Player) playerListView.getSelectionModel().getSelectedItem()).toString());
-            dialog.setTitle("Edit player");
+            TextInputDialog dialog = new TextInputDialog(((Player) playerListView.getSelectionModel().getSelectedItem()).getName());
+            dialog.setTitle("Edit player name");
             dialog.setHeaderText(null);
-            dialog.setContentText("Edit name and etc:");
+            dialog.setContentText("Edit name:");
 
             Optional<String> result = dialog.showAndWait();
             if (result.isPresent())
@@ -50,6 +50,47 @@ public class ConfigController {
 
             playerListView.refresh();
         } catch (NullPointerException e) {}
+    }
+
+    @FXML
+    protected void editPlayerPointsButtonAction() {
+
+        Player player = (Player)playerListView.getSelectionModel().getSelectedItem();
+
+        try {
+            TextInputDialog dialog = new TextInputDialog(player.getPoints() + "");
+            dialog.setTitle("Edit player points");
+            dialog.setHeaderText(null);
+            dialog.setContentText("Edit points for " + player.getName() + ":");
+
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent())
+                ((Player) playerListView.getSelectionModel().getSelectedItem()).setPoints(Integer.parseInt(result.get()));
+
+            playerListView.refresh();
+        } catch (NullPointerException e) {}
+    }
+
+    /**
+     * NOT DONE
+     */
+    @FXML
+    protected void searchPlayerButtonAction() {
+
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Search for player");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Search for player:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent())
+            for (Player player : content)
+                player.couldBeYou(result.get());
+    }
+
+    @FXML
+    protected void removePlayerButtonAction() {
+        content.remove(playerListView.getSelectionModel().getSelectedItem());
     }
 
 }

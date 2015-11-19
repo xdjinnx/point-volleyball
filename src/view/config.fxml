@@ -10,6 +10,9 @@
 
     <HBox>
         <Button text="Add player" onAction="#addPlayerButtonAction" />
-        <Button text="Edit player" onAction="#editPlayerButtonAction" />
+        <Button text="Edit player name" onAction="#editPlayerNameButtonAction" />
+        <Button text="Edit player points" onAction="#editPlayerPointsButtonAction" />
+        <Button text="Search player" onAction="#searchPlayerButtonAction" />
+        <Button text="Remove player" onAction="#removePlayerButtonAction" />
     </HBox>
 </VBox>
