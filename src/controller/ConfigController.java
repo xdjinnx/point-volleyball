@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextInputDialog;
 import model.Player;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class ConfigController {
 
     public void setup(ArrayList<Player> playerList) {
         content = FXCollections.observableList(playerList);
+        playerListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         playerListView.setItems(content);
     }
 
@@ -83,9 +85,14 @@ public class ConfigController {
         dialog.setContentText("Search for player:");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent())
-            for (Player player : content)
-                player.couldBeYou(result.get());
+        if (result.isPresent()) {
+            playerListView.requestFocus();
+            for (int i = 0; i < content.size(); i++)
+                if(content.get(i).couldBeYou(result.get())) {
+                    playerListView.getSelectionModel().select(i);
+                    playerListView.getFocusModel().focus(i);
+                }
+        }
     }
 
     @FXML
