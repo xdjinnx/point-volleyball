@@ -46,19 +46,19 @@ public class RootController {
 
     @FXML
     protected void saveMenuAction() {
-        if(!tournament.hasFile()) {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save tournament");
-            fileChooser.setInitialFileName("tournament.xml");
-            File file = fileChooser.showSaveDialog(new Stage());
-            tournament.setFile(file);
-        }
+        if(!tournament.hasFile())
+            tournament.setFile(getFileFromDir("Save tournament", "tournament.xml"));
         tournament.save();
     }
 
     @FXML
     protected void aboutMenuAction() {
         alertBox("About", "Created by Peter Lundberg");
+    }
+
+    @FXML
+    protected void exportMenuAction() {
+        tournament.export(getFileFromDir("Export .txt", "scorelist.txt"));
     }
 
     @FXML
@@ -128,6 +128,14 @@ public class RootController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    private File getFileFromDir(String title, String defaultFileName) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.setInitialFileName(defaultFileName);
+
+        return fileChooser.showSaveDialog(new Stage());
     }
 
     private void unlockApplication() {

@@ -12,11 +12,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintStream;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Peter on 2015-11-15.
@@ -84,6 +83,17 @@ public class Tournament {
         }
     }
 
+    public void export(File file) {
+        try {
+            PrintStream ps = new PrintStream(file);
+            for (Player player : getPlacementList())
+                ps.println(player.getName() + " " + player.getPoints() + "points" + "\n");
+            ps.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<Team> shuffle() {
 
         int teamAmount = playerList.size()/6;
@@ -101,6 +111,23 @@ public class Tournament {
             teamList.get(i % teamAmount).addPlayer(shuffledList.get(i));
 
         return teamList;
+    }
+
+    public ArrayList<Player> getPlacementList() {
+        ArrayList<Player> list = (ArrayList<Player>) playerList.clone();
+
+        list.sort(new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                if(o1.getPoints() == o2.getPoints())
+                    return 0;
+                if(o1.getPoints() < o2.getPoints())
+                    return 1;
+                return -1;
+            }
+        });
+
+        return list;
     }
 
     public void setFile(File file) {
