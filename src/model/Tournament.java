@@ -17,9 +17,6 @@ import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.util.*;
 
-/**
- * Created by Peter on 2015-11-15.
- */
 public class Tournament {
 
     private File file;
@@ -99,6 +96,9 @@ public class Tournament {
         int teamAmount = playerList.size()/6;
         teamAmount = teamAmount % 2 == 0 ? teamAmount : teamAmount + 1;
         teamAmount = teamAmount <= playerList.size()/5 ? teamAmount : teamAmount - 2;
+
+        if(teamAmount <= 0)
+            return new ArrayList<Team>();
 
         ArrayList<Player> shuffledList = (ArrayList<Player>) playerList.clone();
         Collections.shuffle(shuffledList, new Random(System.nanoTime()));

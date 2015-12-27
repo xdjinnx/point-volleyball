@@ -7,12 +7,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextInputDialog;
 import model.Player;
+import util.AlertBox;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
-/**
- * Created by Peter on 2015-11-15.
- */
 public class ConfigController {
 
     private ObservableList<Player> content;
@@ -40,8 +39,14 @@ public class ConfigController {
     @FXML
     protected void editPlayerNameButtonAction() {
 
+        Player player = (Player) playerListView.getSelectionModel().getSelectedItem();
+        if(player == null) {
+            AlertBox.show("Info", "Select a player!");
+            return;
+        }
+
         try {
-            TextInputDialog dialog = new TextInputDialog(((Player) playerListView.getSelectionModel().getSelectedItem()).getName());
+            TextInputDialog dialog = new TextInputDialog(player.getName());
             dialog.setTitle("Edit player name");
             dialog.setHeaderText(null);
             dialog.setContentText("Edit name:");
@@ -58,6 +63,10 @@ public class ConfigController {
     protected void editPlayerPointsButtonAction() {
 
         Player player = (Player)playerListView.getSelectionModel().getSelectedItem();
+        if(player == null) {
+            AlertBox.show("Info", "Select a player!");
+            return;
+        }
 
         try {
             TextInputDialog dialog = new TextInputDialog(player.getPoints() + "");
@@ -73,9 +82,6 @@ public class ConfigController {
         } catch (NullPointerException e) {}
     }
 
-    /**
-     * NOT DONE
-     */
     @FXML
     protected void searchPlayerButtonAction() {
 

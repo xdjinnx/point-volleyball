@@ -16,7 +16,7 @@
                 <items>
                     <MenuItem text="New" onAction="#newMenuAction"/>
                     <MenuItem text="Open" onAction="#openMenuAction" />
-                    <MenuItem fx:id="saveMenu" text="Save" onAction="#saveMenuAction" disable="true" />
+                    <MenuItem text="Save" onAction="#saveMenuAction" />
                     <MenuItem text="Export .txt" onAction="#exportMenuAction" />
                     <SeparatorMenuItem  />
                     <MenuItem text="Exit" onAction="#exitMenuAction"/>
@@ -33,10 +33,10 @@
     <ListView fx:id="teamListView" />
 
     <HBox>
-        <Button fx:id="givePointsButton" text="Give points" onAction="#givePointsButtonAction" disable="true" />
+        <Button text="Give points" onAction="#givePointsButtonAction" />
         <Button text="Shuffle teams" onAction="#shuffleTeamsButtonAction" />
-        <Button fx:id="configPlayersButton" text="Config players" onAction="#configPlayersButtonAction" disable="true" />
-        <Button fx:id="searchPlayerButton" text="Search player" onAction="#searchPlayerButtonAction" />
+        <Button text="Config players" onAction="#configPlayersButtonAction" />
+        <Button text="Search player" onAction="#searchPlayerButtonAction" />
     </HBox>
 
 </VBox>

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import model.Player;
 import model.Team;
 import model.Tournament;
+import util.AlertBox;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,18 +21,14 @@ import java.util.Optional;
 
 public class RootController {
 
-    @FXML private MenuItem saveMenu;
     @FXML private ListView teamListView;
-    @FXML private Button configPlayersButton;
-    @FXML private Button givePointsButton;
 
-    private Tournament tournament;
+    private Tournament tournament = new Tournament();
     private ObservableList<Team> content;
 
     @FXML
     protected void newMenuAction() {
         tournament = new Tournament();
-        unlockApplication();
     }
 
     @FXML
@@ -41,7 +38,6 @@ public class RootController {
         if (file != null) {
             tournament = new Tournament(file);
         }
-        unlockApplication();
     }
 
     @FXML
@@ -53,7 +49,7 @@ public class RootController {
 
     @FXML
     protected void aboutMenuAction() {
-        alertBox("About", "Created by Peter Lundberg");
+        AlertBox.show("About", "Created by Peter Lundberg");
     }
 
     @FXML
@@ -69,10 +65,11 @@ public class RootController {
     @FXML
     protected void shuffleTeamsButtonAction() {
         ArrayList<Team> teamList = tournament.shuffle();
+        if(teamList.size() == 0) {
+            AlertBox.show("Info", "You don't have enough players!");
+        }
         content = FXCollections.observableList(teamList);
         teamListView.setItems(content);
-
-        givePointsButton.setDisable(false);
     }
 
     @FXML
@@ -95,6 +92,10 @@ public class RootController {
     protected void givePointsButtonAction() {
 
         Team team = ((Team) teamListView.getSelectionModel().getSelectedItem());
+        if(team == null) {
+            AlertBox.show("Info", "You have to select a team");
+            return;
+        }
 
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Give points");
@@ -118,16 +119,8 @@ public class RootController {
         if (result.isPresent())
             for (Team team : content)
                 for (Player player : team.findPlayers(result.get())) {
-                    alertBox("Found player/s", player.getName() + " found in team " + team.getName());
+                    AlertBox.show("Found player/s", player.getName() + " found in team " + team.getName());
                 }
-    }
-
-    private void alertBox(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     private File getFileFromDir(String title, String defaultFileName) {
@@ -136,11 +129,6 @@ public class RootController {
         fileChooser.setInitialFileName(defaultFileName);
 
         return fileChooser.showSaveDialog(new Stage());
-    }
-
-    private void unlockApplication() {
-        saveMenu.setDisable(false);
-        configPlayersButton.setDisable(false);
     }
 
 }

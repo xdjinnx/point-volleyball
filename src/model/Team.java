@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Peter on 2015-11-18.
- */
 public class Team {
 
     private ArrayList<Player> playerList = new ArrayList<Player>();

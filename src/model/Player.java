@@ -1,8 +1,5 @@
 package model;
 
-/**
- * Created by Peter on 2015-11-15.
- */
 public class Player {
 
     private String name;
