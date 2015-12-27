@@ -12,9 +12,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Tournament {
@@ -22,14 +20,24 @@ public class Tournament {
     private File file;
     private ArrayList<Player> playerList = new ArrayList<Player>();
 
+    /**
+     * Constructs a tournament with zero players.
+     */
     public Tournament() {}
 
+    /**
+     * Constructs a tournament and adding players from a player xml.
+     * @param file A xml file constructed from this application.
+     */
     public Tournament(File file) {
         this();
         this.file = file;
         load(file);
     }
 
+    /**
+     * Saves players to tournament file.
+     */
     public void save() {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -64,6 +72,10 @@ public class Tournament {
         }
     }
 
+    /**
+     * Load players to tournament from file.
+     * @param file A xml file constructed from this application.
+     */
     public void load(File file) {
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -80,6 +92,10 @@ public class Tournament {
         }
     }
 
+    /**
+     * Write players and player's points to file.
+     * @param file File you want to write to.
+     */
     public void export(File file) {
         try {
             PrintStream ps = new PrintStream(file);
@@ -91,6 +107,10 @@ public class Tournament {
         }
     }
 
+    /**
+     * Get a shuffled list with players from the tournament.
+     * @return The shuffled list.
+     */
     public ArrayList<Team> shuffle() {
 
         int teamAmount = playerList.size()/6;
@@ -113,6 +133,10 @@ public class Tournament {
         return teamList;
     }
 
+    /**
+     * Get a sorted list of the players in the tournament. Sorted on their points.
+     * @return Sorted player list.
+     */
     public ArrayList<Player> getPlacementList() {
         ArrayList<Player> list = (ArrayList<Player>) playerList.clone();
 
@@ -130,14 +154,26 @@ public class Tournament {
         return list;
     }
 
+    /**
+     * Set tournament file.
+     * @param file The file object you want the tournament to have.
+     */
     public void setFile(File file) {
         this.file = file;
     }
 
+    /**
+     * Check if tournament object has a tournament file.
+     * @return false if no file has been set. True otherwise.
+     */
     public boolean hasFile() {
         return file != null;
     }
 
+    /**
+     * Get a list of the players in the tournament.
+     * @return List of players.
+     */
     public ArrayList<Player> getPlayerList() {
         return playerList;
     }

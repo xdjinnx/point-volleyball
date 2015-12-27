@@ -18,6 +18,11 @@ public class ConfigController {
 
     @FXML private ListView playerListView;
 
+    /**
+     * This function has to be called before use.
+     * Setup the player list that should be configured.
+     * @param playerList The player ArrayList that should be configured.
+     */
     public void setup(ArrayList<Player> playerList) {
         content = FXCollections.observableList(playerList);
         playerListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
